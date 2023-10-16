@@ -39,6 +39,14 @@ public class Aluno {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public Aluno(String nome, String idade, String semestre, String genero, String matricula) {
+		super();
+		this.nome = nome;
+		this.idade = idade;
+		this.semestre = semestre;
+		this.genero = genero;
+		this.matricula = matricula;
+	}
 	public String getMatricula() {
 		return matricula;
 	}

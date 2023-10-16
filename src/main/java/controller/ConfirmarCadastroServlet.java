@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import dao.AlunoJDBCDAO;
+
 /**
  * Servlet implementation class ConfirmarCadastroServlet
  */
@@ -24,24 +26,14 @@ public class ConfirmarCadastroServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("−−−−−−−−−−−−− Passei no servlet de confirmar cadastro −−−−−−−−−−−−");
 		// Recuperando a sessao
-		HttpSession session = request.getSession();
-		// Recuperar os valores informados
+		
 
 		String nome = request.getParameter("nome");
 		String idade = request.getParameter("idade");
 		String genero = request.getParameter("genero");
 		String semestre = request.getParameter("semestre");
-		// Recuperando a lista da seção, caso não exista, cria
-		List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos");
-		Aluno aluno = null;
-		if (listaAlunos == null) {
-			listaAlunos = new ArrayList<>(); // Criando a lista
-			 aluno = new Aluno(1 ,nome, idade, semestre, genero, "");
-		}
-		else {
-			Aluno ultimoAluno = listaAlunos.get(listaAlunos.size() - 1);
-			 aluno = new Aluno( ultimoAluno.getId() + 1,nome, idade, semestre, genero, "");
-		}
+		
+		AlunoJDBCDAO dao = new AlunoJDBCDAO();
 		
 		LocalDate dataAtual = LocalDate.now();
 		int anoInt = dataAtual.getYear();
@@ -58,16 +50,17 @@ public class ConfirmarCadastroServlet extends HttpServlet {
 		int n = rand.nextInt(9999);
 		String x = Integer.toString(n);
 		matriculaString.append(x);
-		aluno.setMatricula(matriculaString.toString());
-		// Adicionando um aluno na lista
 		
-		listaAlunos.add(aluno);
-		session.setAttribute("listaAlunos", listaAlunos);
-		request.setAttribute("aluno", aluno);
-		// Encaminhar a requisição para o JSP
-		RequestDispatcher dispatcher = request.getRequestDispatcher("detalharAluno.jsp");
-		dispatcher.forward(request, response);
+		
+		Aluno aluno = new Aluno(nome, idade, semestre, genero, matriculaString.toString());
+		Aluno alunoCadastrado = dao.cadastrarAluno(aluno);
+		request.setAttribute("aluno", alunoCadastrado);
+		
+		request.getRequestDispatcher("detalharAluno.jsp").forward(request, response);
+		
+		
 
 	}
 
 }
+

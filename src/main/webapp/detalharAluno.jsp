@@ -25,7 +25,7 @@ Semestre: <%= aluno.getSemestre() %>
 <br><br>
 Matricula: <%= aluno.getMatricula() %>
 <br><br>
-<input type="button" onclick="javascript:location.href='listarAlunos.jsp'" value="Confirmar">
+<input type="button" onclick="javascript:location.href='ListarServlet'" value="Confirmar">
 <a href="AlterarServlet?id=<%=aluno.getId()%>">Alterar</a>
 <br><br>
 <%

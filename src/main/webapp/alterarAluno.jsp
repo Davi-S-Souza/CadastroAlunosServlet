@@ -32,7 +32,7 @@ Gênero:
 Feminino
 <br><br>
 <input type="submit" value="Confirmar Alteração">
-<input type="button" onclick="javascript:location.href='listarAlunos.jsp'" value="Voltar">
+<input type="button" onclick="javascript:location.href='ListarServlet'" value="Voltar">
 </form>
 </body>
 </html>

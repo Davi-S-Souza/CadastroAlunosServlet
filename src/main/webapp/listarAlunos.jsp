@@ -12,7 +12,7 @@
 out.print("Bem vindo, "+usuario+" <br/>");
 %>
 Clique <a href="cadastrarAluno.jsp">aqui</a> para cadastar um novo aluno
-<% List<Aluno> listaAlunos = (List<Aluno>) session.getAttribute("listaAlunos"); %>
+<% List<Aluno> listaAlunos = (List<Aluno>) request.getAttribute("listaAlunos"); %>
 <h2>Alunos Cadastrados</h2>
 <table border="1">
 <tr>

@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import dao.AlunoJDBCDAO;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -23,11 +25,13 @@ public class LoginServlet extends HttpServlet {
 		if (usuario.equals("admin") && senha.equals("admin") && usuario != null && !senha.isEmpty()) {
 		HttpSession session = request.getSession();
 		session.setAttribute("usuario", usuario);
-		session.setMaxInactiveInterval(360);
+		session.setMaxInactiveInterval(6 * 60);
+		AlunoJDBCDAO dao = new AlunoJDBCDAO();
+		request.setAttribute("listaAlunos", dao.listarAlunos());
 		// Encaminhar a requisição para o JSP
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("listarAlunos.jsp");
-		//dispatcher.forward(request, response);
-		response.sendRedirect("listarAlunos.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("listarAlunos.jsp");
+		dispatcher.forward(request, response);
+//		response.sendRedirect("listarAlunos.jsp");
 		} else {
 		request.setAttribute("mensagem", "Senha ou Login incorreto");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
