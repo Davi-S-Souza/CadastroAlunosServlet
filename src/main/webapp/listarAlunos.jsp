@@ -42,7 +42,7 @@ for (Aluno aluno : listaAlunos) { %>
 <br>
 <form action="PesquisarServlet" method="get">
 
-Pesquisar por nome ou matrícula: <input type="text" name="pesquisa">
+Pesquisar por nome ou matricula: <input type="text" name="pesquisa">
 <br><br>
 <input type="submit" value="Pesquisar">
 </form>
