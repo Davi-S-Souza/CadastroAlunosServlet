@@ -39,6 +39,14 @@ for (Aluno aluno : listaAlunos) { %>
 </tr>
 <% } }%>
 </table>
+<br>
+<form action="PesquisarServlet" method="get">
+
+Pesquisar por nome ou matrícula: <input type="text" name="pesquisa">
+<br><br>
+<input type="submit" value="Pesquisar">
+</form>
+<br><br>
 <a href="LogoutServlet">Sair</a>
 </head>
 <body>

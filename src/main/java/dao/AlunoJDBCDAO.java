@@ -109,13 +109,16 @@ public void alterarAluno(Aluno aluno) {
 			Connection con = getConexao();
 			 Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
 			int id2 = rs.getInt(1);
 			String name = rs.getString(2);
 			String idade = rs.getString(3);
 			String semestre = rs.getString(4);
 			String genero = rs.getString(5);
 			String matricula = rs.getString(6);
+			
 			 aluno = new Aluno(id2, name, idade, semestre,genero,matricula);
+			}
 			rs.close();
 			stmt.close();
 			con.close();
@@ -129,9 +132,31 @@ public void alterarAluno(Aluno aluno) {
 				
 	
 	
-	public void pesquisarNomeMat(Aluno aluno) {
-	
-	}
-	
-	
+	public ArrayList<Aluno> pesquisarNomeMat(String pesquisa) {
+		String query = "select * from alunos where nome like '%"+ pesquisa +"%' or matricula like '%" + pesquisa + "%'";
+		ArrayList<Aluno> alunos = new ArrayList<>();
+		try {
+			Connection con = getConexao();
+			 Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+			int id = rs.getInt(1);
+			String name = rs.getString(2);
+			String idade = rs.getString(3);
+			String semestre = rs.getString(4);
+			String genero = rs.getString(5);
+			String matricula = rs.getString(6);
+			alunos.add(new Aluno(id, name, idade, semestre,genero,matricula));
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		}catch (Exception e) {
+			System.out.println(e);
+			}
+		
+		return alunos;	
+			
+				
+}
 }
